@@ -1,0 +1,8 @@
+App\Security\User\Domain\Model\User:
+  attributes:
+    id:
+      groups: ['User:Read']
+    username:
+      groups: ['User:Read']
+    email:
+      groups: ['User:Read']
