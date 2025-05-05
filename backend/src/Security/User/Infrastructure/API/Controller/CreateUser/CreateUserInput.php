@@ -30,7 +30,7 @@ final class CreateUserInput
     {
         return new CreateUserRequest(
             username: $this->username,
-            email: $this->username,
+            email: $this->email,
             password: $this->password
         );
     }
