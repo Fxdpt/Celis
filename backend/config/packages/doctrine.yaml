@@ -30,6 +30,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Security/Login/Infrastructure/Doctrine/Entity'
                 prefix: 'App\Security\Login\Infrastructure\Doctrine\Entity'
                 alias: Token
+            Emotion:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Emotion/Infrastructure/Doctrine/Entity'
+                prefix: 'App\Emotion\Infrastructure\Doctrine\Entity'
+                alias: Emotion
         controller_resolver:
             auto_mapping: false
 
