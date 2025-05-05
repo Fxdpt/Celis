@@ -24,16 +24,6 @@ final class TokenAuthenticator extends AbstractAuthenticator
 
     public function supports(Request $request): ?bool
     {
-        if (
-            $request->getPathInfo() === "/login"
-            || ($request->getPathInfo() === "/user"
-                && $request->getMethod() === "POST"
-            )
-        ) {
-            $request->attributes->set('_security_skip_authenticator', true);
-            return false;
-        }
-
         return $request->headers->has(self::TOKEN_HEADER);
     }
 
