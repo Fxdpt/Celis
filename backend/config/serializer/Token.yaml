@@ -1,0 +1,8 @@
+App\Security\Login\Domain\Model\Token:
+  attributes:
+    userId:
+      serialized_name: user_id
+    expirationDate:
+      ignore: true
+    expired:
+      ignore: true

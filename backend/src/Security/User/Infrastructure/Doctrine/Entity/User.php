@@ -2,6 +2,7 @@
 
 namespace App\Security\User\Infrastructure\Doctrine\Entity;
 
+use App\Security\Login\Infrastructure\Doctrine\Entity\Token;
 use App\Security\User\Domain\Model\User as ModelUser;
 use App\Security\User\Infrastructure\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +14,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Token $token = null;
+
     public function __construct(
         #[ORM\Id]
         #[ORM\GeneratedValue]
@@ -115,5 +119,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             roles: $user->getRoles(),
             password: $user->getPassword()
         );
+    }
+
+    public function getToken(): ?Token
+    {
+        return $this->token;
+    }
+
+    public function setToken(Token $token): static
+    {
+        // set the owning side of the relation if necessary
+        if ($token->getUser() !== $this) {
+            $token->setUser($this);
+        }
+
+        $this->token = $token;
+
+        return $this;
     }
 }

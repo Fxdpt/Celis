@@ -17,6 +17,6 @@ final class CreateUserController extends AbstractController
         CreateUser $useCase,
     ) {
         $request->attributes->set('serialization_groups', ['User:Read']);
-        return $useCase($dto->toRequest()); //Si c'est une ApplicationError, traité par Symfony, comme ça je n'ai qu'a géré le cas ou cela a fonctionné
+        return $useCase($dto->toRequest());
     }
 }
