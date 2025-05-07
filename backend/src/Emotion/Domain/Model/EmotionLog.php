@@ -2,11 +2,17 @@
 
 namespace App\Emotion\Domain\Model;
 
+use App\Emotion\Domain\Model\PrimaryEmotion\PrimaryEmotion;
+use App\Emotion\Domain\Model\SecondaryEmotion\SecondaryEmotion;
+use App\Emotion\Domain\Model\TertiaryEmotion\TertiaryEmotion;
+
 final class EmotionLog
 {
     public function __construct(
         private ?int $id,
-        private Emotion $emotion,
+        private PrimaryEmotion $primaryEmotion,
+        private SecondaryEmotion $secondaryEmotion,
+        private TertiaryEmotion $tertiaryEmotion,
         private \DateTimeImmutable $date,
         private ?string $comment,
         private ?TriggerEvent $triggerEvent
@@ -18,9 +24,19 @@ final class EmotionLog
         return $this->id;
     }
 
-    public function getEmotion(): Emotion
+    public function getPrimaryEmotion(): PrimaryEmotion
     {
-        return $this->emotion;
+        return $this->primaryEmotion;
+    }
+
+    public function getSecondaryEmotion(): SecondaryEmotion
+    {
+        return $this->secondaryEmotion;
+    }
+
+    public function getTertiaryEmotion(): TertiaryEmotion
+    {
+        return $this->tertiaryEmotion;
     }
 
     public function getDate(): \DateTimeImmutable

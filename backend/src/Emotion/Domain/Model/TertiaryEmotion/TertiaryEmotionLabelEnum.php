@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Emotion\Domain\Model\TertiaryEmotion;
+
+enum TertiaryEmotionLabelEnum
+{
+    case HESITANT;
+    case AVERSION;
+    case DETESTABLE;
+    case REVULSION;
+    case REVOLTED;
+    case REPUGNANT;
+    case LOATHING;
+    case JUDGMENTAL;
+    case SARCASTIC;
+    case SKEPTICAL;
+    case SUSPICIOUS;
+    case WITHDRAWN;
+    case IRRITATED;
+    case INFURIATE;
+    case HOSTILE;
+    case PROVOKED;
+    case ENRAGED;
+    case FURIOUS;
+    case VIOLATED;
+    case RESENTFUL;
+    case JEALOUS;
+    case INSECURE;
+    case DEVASTATED;
+    case EMBARRASSED;
+    case RIDICULED;
+    case DISRESPECTED;
+    case ALIENATED;
+    case INADEQUATE;
+    case INSIGNIFICANT;
+    case WORTHLESS;
+    case INFERIOR;
+    case WORRIED;
+    case OVERWHELMED;
+    case FRIGHTENED;
+    case TERRIFIED;
+    case SHOCKED;
+    case DISMAYED;
+    case DISILLUSIONED;
+    case PERPLEXED;
+    case ASTONISHED;
+    case AWE;
+    case EAGER;
+    case ENERGETIC;
+    case LIBERATED;
+    case ECSTATIC;
+    case AMUSED;
+    case INQUISITIVE;
+    case IMPORTANT;
+    case CONFIDENT;
+    case RESPECTED;
+    case FULFILLED;
+    case COURAGEOUS;
+    case PROVOCATIVE;
+    case LOVING;
+    case HOPEFUL;
+    case SENSITIVE;
+    case PLAYFUL;
+    case OPEN;
+    case INSPIRED;
+    case INDIFFERENT;
+    case APATHETIC;
+    case ISOLATED;
+    case ABANDONED;
+    case EMPTY;
+    case VULNERABLE;
+    case POWERLESS;
+    case VICTIMIZED;
+    case IGNORED;
+    case ASHAMED;
+    case REMORSEFUL;
+}
