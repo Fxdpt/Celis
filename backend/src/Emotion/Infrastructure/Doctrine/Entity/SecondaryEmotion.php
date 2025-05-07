@@ -4,7 +4,7 @@ namespace App\Emotion\Infrastructure\Doctrine\Entity;
 
 use App\Emotion\Domain\Model\EmotionLog as ModelEmotionLog;
 use App\Emotion\Domain\Model\SecondaryEmotion\SecondaryEmotion as ModelSecondaryEmotion;
-use App\Emotion\Infrastructure\EnumConverter\SecondaryEmotionLabelConverter;
+use App\Emotion\Domain\Model\SecondaryEmotion\SecondaryEmotionLabelEnum;
 use App\Emotion\Infrastructure\Repository\SecondaryEmotionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -79,7 +79,7 @@ class SecondaryEmotion
 
         return new ModelSecondaryEmotion(
             id: $this->id,
-            emotionLabel: SecondaryEmotionLabelConverter::toEnum($this->emotionLabel),
+            emotionLabel: SecondaryEmotionLabelEnum::tryFrom(strtolower($this->emotionLabel)),
             emotionLogs: $emotionLogs
         );
     }
@@ -96,7 +96,7 @@ class SecondaryEmotion
 
         return new SecondaryEmotion(
             $model->getId(),
-            emotionLabel: SecondaryEmotionLabelConverter::toString($model->getEmotionLabel()),
+            emotionLabel: $model->getEmotionLabel()->value,
             emotionLogs: $emotionLogs
         );
     }

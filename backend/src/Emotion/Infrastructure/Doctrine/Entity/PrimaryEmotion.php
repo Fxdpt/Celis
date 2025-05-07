@@ -4,8 +4,8 @@ namespace App\Emotion\Infrastructure\Doctrine\Entity;
 
 use App\Emotion\Domain\Model\EmotionLog as ModelEmotionLog;
 use App\Emotion\Domain\Model\PrimaryEmotion\PrimaryEmotion as ModelPrimaryEmotion;
+use App\Emotion\Domain\Model\PrimaryEmotion\PrimaryEmotionLabelEnum;
 use App\Emotion\Infrastructure\Doctrine\Entity\EmotionLog;
-use App\Emotion\Infrastructure\EnumConverter\PrimaryEmotionLabelConverter;
 use App\Emotion\Infrastructure\Repository\PrimaryEmotionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -81,7 +81,7 @@ class PrimaryEmotion
 
         return new ModelPrimaryEmotion(
             id: $this->id,
-            emotionLabel: PrimaryEmotionLabelConverter::toEnum($this->emotionLabel),
+            emotionLabel: PrimaryEmotionLabelEnum::tryFrom(strtolower($this->emotionLabel)),
             emotionLogs: $emotionLogs
         );
     }
@@ -98,7 +98,7 @@ class PrimaryEmotion
 
         return new PrimaryEmotion(
             $model->getId(),
-            emotionLabel: PrimaryEmotionLabelConverter::toString($model->getEmotionLabel()),
+            emotionLabel: $model->getEmotionLabel()->value,
             emotionLogs: $emotionLogs
         );
     }

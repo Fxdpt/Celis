@@ -2,6 +2,7 @@
 
 namespace App\Emotion\Infrastructure\Repository;
 
+use App\Emotion\Application\Repository\ReadPrimaryEmotionRepositoryInterface;
 use App\Emotion\Infrastructure\Doctrine\Entity\PrimaryEmotion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -9,11 +10,22 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<PrimaryEmotion>
  */
-class PrimaryEmotionRepository extends ServiceEntityRepository
+class PrimaryEmotionRepository extends ServiceEntityRepository implements ReadPrimaryEmotionRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PrimaryEmotion::class);
+    }
+
+    public function findAll(): array
+    {
+        $results = parent::findAll();
+
+        return array_map(
+            fn(PrimaryEmotion $emotion) => $emotion->toModel(),
+            $results
+        );
+
     }
 
 //    /**
