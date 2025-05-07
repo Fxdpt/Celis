@@ -11,11 +11,6 @@ use \App\Emotion\Infrastructure\Doctrine\Entity\TriggerEvent;
 #[ORM\Entity(repositoryClass: EmotionLogRepository::class)]
 class EmotionLog
 {
-
-    #[ORM\ManyToOne(inversedBy: 'emotionLogs')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?TriggerEvent $triggerEvent = null;
-
     public function __construct(
         #[ORM\Id]
         #[ORM\GeneratedValue]
@@ -33,7 +28,10 @@ class EmotionLog
         #[ORM\JoinColumn(nullable: false)]
         private TertiaryEmotion $tertiaryEmotion,
         #[ORM\Column(type: Types::TEXT, nullable: true)]
-        private ?string $comment = null
+        private ?string $comment = null,
+        #[ORM\ManyToOne(inversedBy: 'emotionLogs')]
+        #[ORM\JoinColumn(nullable: false)]
+        private ?TriggerEvent $triggerEvent = null
     ) {
     }
 
@@ -134,7 +132,9 @@ class EmotionLog
             date: $model->getDate()->getTimestamp(),
             primaryEmotion: PrimaryEmotion::fromModel($model->getPrimaryEmotion()),
             secondaryEmotion: SecondaryEmotion::fromModel($model->getSecondaryEmotion()),
-            tertiaryEmotion: TertiaryEmotion::fromModel($model->getTertiaryEmotion())
+            tertiaryEmotion: TertiaryEmotion::fromModel($model->getTertiaryEmotion()),
+            comment: $model->getComment(),
+            triggerEvent: TriggerEvent::fromModel($model->getTriggerEvent())
         );
     }
 }
