@@ -6,7 +6,6 @@ use App\Emotion\Domain\Model\EmotionLog as ModelEmotionLog;
 use App\Emotion\Domain\Model\PrimaryEmotion\PrimaryEmotion as ModelPrimaryEmotion;
 use App\Emotion\Domain\Model\PrimaryEmotion\PrimaryEmotionLabelEnum;
 use App\Emotion\Infrastructure\Doctrine\Entity\EmotionLog;
-use App\Emotion\Infrastructure\EnumConverter\PrimaryEmotionLabelConverter;
 use App\Emotion\Infrastructure\Repository\PrimaryEmotionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
