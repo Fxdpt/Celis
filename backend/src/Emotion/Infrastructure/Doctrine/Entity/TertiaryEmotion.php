@@ -5,7 +5,7 @@ namespace App\Emotion\Infrastructure\Doctrine\Entity;
 use App\Emotion\Infrastructure\Repository\TertiaryEmotionRepository;
 use App\Emotion\Domain\Model\TertiaryEmotion\TertiaryEmotion as ModelTertiaryEmotion;
 use App\Emotion\Domain\Model\EmotionLog as ModelEmotionLog;
-use App\Emotion\Infrastructure\EnumConverter\TertiaryEmotionLabelConverter;
+use App\Emotion\Domain\Model\TertiaryEmotion\TertiaryEmotionLabelEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -79,7 +79,7 @@ class TertiaryEmotion
 
         return new ModelTertiaryEmotion(
             id: $this->id,
-            emotionLabel: TertiaryEmotionLabelConverter::toEnum($this->emotionLabel),
+            emotionLabel: TertiaryEmotionLabelEnum::tryFrom(strtolower($this->emotionLabel)),
             emotionLogs: $emotionLogs
         );
     }
@@ -96,7 +96,7 @@ class TertiaryEmotion
 
         return new TertiaryEmotion(
             $model->getId(),
-            emotionLabel: TertiaryEmotionLabelConverter::toString($model->getEmotionLabel()),
+            emotionLabel: $model->getEmotionLabel()->value,
             emotionLogs: $emotionLogs
         );
     }

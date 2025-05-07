@@ -2,12 +2,12 @@
 
 namespace App\Emotion\Domain\Model\PrimaryEmotion;
 
-enum PrimaryEmotionLabelEnum
+enum PrimaryEmotionLabelEnum: string
 {
-    case DISGUST;
-    case ANGER;
-    case FEAR;
-    case SURPRISE;
-    case HAPPY;
-    case SAD;
+    case DISGUST = 'disgust';
+    case ANGER = 'anger';
+    case FEAR = 'fear';
+    case SURPRISE = 'surprise';
+    case HAPPY = 'happy';
+    case SAD = 'sad';
 }

@@ -1,0 +1,7 @@
+App\Emotion\Domain\Model\SecondaryEmotion\SecondaryEmotion:
+  attributes:
+    id:
+      groups: ['Emotion:List']
+    emotionLabel:
+      groups: ['Emotion:List']
+      serialized_name: 'label'
