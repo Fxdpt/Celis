@@ -3,6 +3,7 @@
 namespace App\Emotion\Infrastructure\Repository;
 
 use App\Emotion\Application\Repository\ReadSecondaryEmotionRepositoryInterface;
+use App\Emotion\Domain\Model\SecondaryEmotion\SecondaryEmotion as ModelSecondaryEmotion;
 use App\Emotion\Infrastructure\Doctrine\Entity\SecondaryEmotion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,6 +26,28 @@ class SecondaryEmotionRepository extends ServiceEntityRepository implements Read
             fn(SecondaryEmotion $emotion) => $emotion->toModel(),
             $results
         );
+    }
+
+    public function findOneById(int $emotionId): ModelSecondaryEmotion
+    {
+        /**
+         * @var SecondaryEmotion
+         */
+        $result = parent::findOneBy(['id' => $emotionId]);
+
+        return $result->toModel();
+    }
+
+    public function exists(int $emotionId): bool
+    {
+        $result = $this->createQueryBuilder('s')
+            ->select('1')
+            ->andWhere('s.id = :id')
+            ->setParameter('id', $emotionId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result !== null;
     }
 
     //    /**

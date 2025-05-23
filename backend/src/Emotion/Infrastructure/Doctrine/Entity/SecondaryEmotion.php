@@ -9,6 +9,7 @@ use App\Emotion\Infrastructure\Repository\SecondaryEmotionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\MaxDepth;
 
 #[ORM\Entity(repositoryClass: SecondaryEmotionRepository::class)]
 class SecondaryEmotion
@@ -20,11 +21,6 @@ class SecondaryEmotion
         private ?int $id = null,
         #[ORM\Column(length: 255)]
         private ?string $emotionLabel = null,
-        /**
-         * @var Collection<int, EmotionLog>
-         */
-        #[ORM\OneToMany(targetEntity: EmotionLog::class, mappedBy: 'primaryEmotion', orphanRemoval: true)]
-        private Collection $emotionLogs = new ArrayCollection()
     ) {
     }
 
@@ -45,59 +41,20 @@ class SecondaryEmotion
         return $this;
     }
 
-    /**
-     * @return Collection<int, EmotionLog>
-     */
-    public function getEmotionLog(): Collection
-    {
-        return $this->emotionLogs;
-    }
-
-    public function addEmotionLog(EmotionLog $emotionLog): static
-    {
-        if (!$this->emotionLogs->contains($emotionLog)) {
-            $this->emotionLogs->add($emotionLog);
-            $emotionLog->setSecondaryEmotion($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEmotionLog(EmotionLog $emotionLog): static
-    {
-        $this->emotionLogs->removeElement($emotionLog);
-
-        return $this;
-    }
-
     public function toModel(): ModelSecondaryEmotion
     {
-        $emotionLogs = array_map(
-            fn (EmotionLog $emotionLog) => $emotionLog->toModel(),
-            $this->emotionLogs->getValues()
-        );
 
         return new ModelSecondaryEmotion(
             id: $this->id,
-            emotionLabel: SecondaryEmotionLabelEnum::tryFrom(strtolower($this->emotionLabel)),
-            emotionLogs: $emotionLogs
+            emotionLabel: SecondaryEmotionLabelEnum::tryFrom(strtolower($this->emotionLabel))
         );
     }
 
     public static function fromModel(ModelSecondaryEmotion $model): SecondaryEmotion
     {
-        $emotionLogs = new ArrayCollection();
-        array_map(
-            function (ModelEmotionLog $emotionLog) use ($emotionLogs) {
-                $emotionLogs->add(EmotionLog::fromModel($emotionLog));
-            },
-            $model->getEmotionLogs()
-        );
-
         return new SecondaryEmotion(
-            $model->getId(),
+            id: $model->getId(),
             emotionLabel: $model->getEmotionLabel()->value,
-            emotionLogs: $emotionLogs
         );
     }
 }

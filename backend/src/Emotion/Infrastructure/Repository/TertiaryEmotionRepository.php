@@ -3,6 +3,7 @@
 namespace App\Emotion\Infrastructure\Repository;
 
 use App\Emotion\Application\Repository\ReadTertiaryEmotionRepositoryInterface;
+use App\Emotion\Domain\Model\TertiaryEmotion\TertiaryEmotion as ModelTertiaryEmotion;
 use App\Emotion\Infrastructure\Doctrine\Entity\TertiaryEmotion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,6 +26,28 @@ class TertiaryEmotionRepository extends ServiceEntityRepository implements ReadT
             fn(TertiaryEmotion $emotion) => $emotion->toModel(),
             $results
         );
+    }
+
+    public function findOneById(int $emotionId): ModelTertiaryEmotion
+    {
+        /**
+         * @var TertiaryEmotion
+         */
+        $result = parent::findOneBy(['id' => $emotionId]);
+
+        return $result->toModel();
+    }
+
+    public function exists(int $emotionId): bool
+    {
+        $result = $this->createQueryBuilder('t')
+            ->select('1')
+            ->andWhere('t.id = :id')
+            ->setParameter('id', $emotionId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result !== null;
     }
 
     //    /**

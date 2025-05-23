@@ -7,7 +7,6 @@ final readonly class PrimaryEmotion
     public function __construct(
         private int $id,
         private PrimaryEmotionLabelEnum $emotionLabel,
-        private array $emotionLogs
     ) {
     }
 
@@ -19,10 +18,5 @@ final readonly class PrimaryEmotion
     public function getEmotionLabel(): PrimaryEmotionLabelEnum
     {
         return $this->emotionLabel;
-    }
-
-    public function getEmotionLogs(): array
-    {
-        return $this->emotionLogs;
     }
 }
