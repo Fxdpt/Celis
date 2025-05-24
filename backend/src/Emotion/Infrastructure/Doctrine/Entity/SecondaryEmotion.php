@@ -2,14 +2,10 @@
 
 namespace App\Emotion\Infrastructure\Doctrine\Entity;
 
-use App\Emotion\Domain\Model\EmotionLog as ModelEmotionLog;
 use App\Emotion\Domain\Model\SecondaryEmotion\SecondaryEmotion as ModelSecondaryEmotion;
 use App\Emotion\Domain\Model\SecondaryEmotion\SecondaryEmotionLabelEnum;
 use App\Emotion\Infrastructure\Repository\SecondaryEmotionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Attribute\MaxDepth;
 
 #[ORM\Entity(repositoryClass: SecondaryEmotionRepository::class)]
 class SecondaryEmotion

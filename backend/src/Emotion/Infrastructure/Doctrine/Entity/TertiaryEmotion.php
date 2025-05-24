@@ -4,12 +4,8 @@ namespace App\Emotion\Infrastructure\Doctrine\Entity;
 
 use App\Emotion\Infrastructure\Repository\TertiaryEmotionRepository;
 use App\Emotion\Domain\Model\TertiaryEmotion\TertiaryEmotion as ModelTertiaryEmotion;
-use App\Emotion\Domain\Model\EmotionLog as ModelEmotionLog;
 use App\Emotion\Domain\Model\TertiaryEmotion\TertiaryEmotionLabelEnum;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Attribute\MaxDepth;
 
 #[ORM\Entity(repositoryClass: TertiaryEmotionRepository::class)]
 class TertiaryEmotion
