@@ -7,8 +7,14 @@ final class TriggerEvent
     public function __construct(
         private ?int $id,
         private string $name,
-        private array $emotionLogs
     ) {
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -19,10 +25,5 @@ final class TriggerEvent
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getEmotionLogs(): array
-    {
-        return $this->emotionLogs;
     }
 }

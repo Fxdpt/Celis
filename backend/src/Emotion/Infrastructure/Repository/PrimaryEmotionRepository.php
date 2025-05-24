@@ -3,6 +3,7 @@
 namespace App\Emotion\Infrastructure\Repository;
 
 use App\Emotion\Application\Repository\ReadPrimaryEmotionRepositoryInterface;
+use App\Emotion\Domain\Model\PrimaryEmotion\PrimaryEmotion as ModelPrimaryEmotion;
 use App\Emotion\Infrastructure\Doctrine\Entity\PrimaryEmotion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,6 +27,28 @@ class PrimaryEmotionRepository extends ServiceEntityRepository implements ReadPr
             $results
         );
 
+    }
+
+    public function findOneById(int $emotionId): ModelPrimaryEmotion
+    {
+        /**
+         * @var PrimaryEmotion
+         */
+        $result = parent::findOneBy(['id' => $emotionId]);
+
+        return $result->toModel();
+    }
+
+    public function exists(int $emotionId): bool
+    {
+        $result = $this->createQueryBuilder('p')
+            ->select('1')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $emotionId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result !== null;
     }
 
 //    /**
